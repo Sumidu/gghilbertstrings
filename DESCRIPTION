@@ -19,9 +19,11 @@ Imports:
     ggplot2,
     dplyr,
     magrittr,
-    tibble
+    tibble,
+    lifecycle
 Suggests: 
     testthat,
     covr,
     spelling
 Language: en-US
+RdMacros: lifecycle

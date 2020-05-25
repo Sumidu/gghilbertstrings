@@ -11,6 +11,8 @@ status](https://travis-ci.com/Sumidu/gghilbertstrings.svg?branch=master)](https:
 status](https://ci.appveyor.com/api/projects/status/github/Sumidu/gghilbertstrings?branch=master&svg=true)](https://ci.appveyor.com/project/Sumidu/gghilbertstrings)
 [![Codecov test
 coverage](https://codecov.io/gh/Sumidu/gghilbertstrings/branch/master/graph/badge.svg)](https://codecov.io/gh/Sumidu/gghilbertstrings?branch=master)
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
 The goal of gghilbertstrings is to …
