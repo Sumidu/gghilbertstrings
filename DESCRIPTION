@@ -15,3 +15,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.0.2
 URL: https://github.com/Sumidu/gghilbertstrings
 BugReports: https://github.com/Sumidu/gghilbertstrings/issues
+Imports: 
+    ggplot2
+Suggests: 
+    testthat
