@@ -20,10 +20,13 @@ Imports:
     dplyr,
     magrittr,
     tibble,
-    lifecycle
+    lifecycle,
+    Rcpp
 Suggests: 
     testthat,
     covr,
     spelling
 Language: en-US
 RdMacros: lifecycle
+LinkingTo: 
+    Rcpp
