@@ -17,3 +17,6 @@ a dataframe with an additional gghid column
 \description{
 Function to create keys from a character list
 }
+\examples{
+mtcars \%>\% tibble::rownames_to_column() \%>\% create_id_column(rowname)
+}

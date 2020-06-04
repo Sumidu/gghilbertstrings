@@ -15,18 +15,27 @@ coverage](https://codecov.io/gh/Sumidu/gghilbertstrings/branch/master/graph/badg
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
 <!-- badges: end -->
 
-The goal of gghilbertstrings is to …
+A [Hilbert curve](https://en.wikipedia.org/wiki/Hilbert_curve) (also
+known as a Hilbert space-filling curve) is a continuous fractal
+space-filling curve first described by the German mathematician David
+Hilbert in 1891, as a variant of the space-filling Peano curves
+discovered by Giuseppe Peano in 1890 (from Wikipedia).
+
+This package provides an easy access to using Hilbert curves in
+`ggplot2`.
 
 ## Installation
 
-You can install the released version of gghilbertstrings from
-[CRAN](https://CRAN.R-project.org) with:
+<!--
+You can install the released version of gghilbertstrings from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("gghilbertstrings")
 ```
+-->
 
-And the development version from [GitHub](https://github.com/) with:
+You can install the development version from
+[GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
@@ -36,7 +45,7 @@ devtools::install_github("Sumidu/gghilbertstrings")
 ## Usage
 
 The `gghilbertstrings` package comes with functions for fast plotting of
-Hilbert curves in ggplot. At it’s core is a fast RCPP implementation
+Hilbert curves in ggplot. At it’s core is a fast RCpp implementation
 that maps a 1D vector to a 2D position.
 
 The `gghilbertplot` function creates a Hilbert curve and plots
@@ -59,9 +68,9 @@ curve. Beware: The `id`s are rounded to integers.
 library(gghilbertstrings)
 
 # val is the ID column used here
-df <- tibble(val = 1:128, 
-       size = runif(128, 1, 5),        # create random sizes 
-       color = rep(c(1,2,3,4),32))     # create random colours
+df <- tibble(val = 1:256, 
+       size = runif(256, 1, 5),        # create random sizes 
+       color = rep(c(1,2,3,4),64))     # create random colours
 
 gghilbertplot(df, val, 
                 color = factor(color), # render color as a factor
@@ -82,7 +91,7 @@ library(gghilbertstrings)
 # Compare the creation of coordinate systems
 mb <- microbenchmark(times = 100, 
 HilbertCurve = {
-  hc <- HilbertCurve(1, 128, level = 7)
+  hc <- HilbertCurve(1, 256, level = 4, newpage = FALSE)
 },
 gghilbertstrings = {
   ggh <- hilbertd2xy(n = 2^7, df$val)
@@ -90,6 +99,18 @@ gghilbertstrings = {
 ```
 
 <img src="man/figures/README-output-1.png" width="75%" />
+
+Comparing both libraries including plotting 256 points of data on 4
+levels.
+
+``` r
+autoplot(mc2) + 
+  coord_flip() + 
+  ggtitle("Comparison of runtime performance using 100 repetions on 4 levels") +
+  labs(caption = "X-Axis on log-scale")
+```
+
+<img src="man/figures/README-comp2-1.png" width="75%" />
 
 ### Useful example
 

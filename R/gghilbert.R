@@ -17,8 +17,8 @@
 #' @export
 #'
 #' @examples
-#' tibble(val = 1:128, size = runif(128, 1, 5), color = rep(c(1,2,3,4),32)) %>%
-#'         gghilbertplot(val, color = factor(color), size = size, add_curve = T)
+#' tibble::tibble(val = 1:128, size = runif(128, 1, 5), color = rep(c(1,2,3,4),32)) %>%
+#'         gghilbertplot(val, color = factor(color), size = size, add_curve = TRUE)
 
 gghilbertplot <- function(df, idcol, color = NULL, size = NULL,
                           alpha = 1,
@@ -50,7 +50,7 @@ gghilbertplot <- function(df, idcol, color = NULL, size = NULL,
 
   # add hilbert curve in the background ----
   if(add_curve){
-    all_points <- tibble(id = 0:(limit-1))
+    all_points <- tibble::tibble(id = 0:(limit-1))
     all_point_h <- hilbertd2xy(limit, all_points$id)
     all_points <- all_points %>%
       dplyr::bind_cols(all_point_h)

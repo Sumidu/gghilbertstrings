@@ -42,6 +42,6 @@ a ggplot object
 Function to create the Hilbert Plot
 }
 \examples{
-tibble(val = 1:128, size = runif(128, 1, 5), color = rep(c(1,2,3,4),32)) \%>\%
-        gghilbertplot(val, color = factor(color), size = size, add_curve = T)
+tibble::tibble(val = 1:128, size = runif(128, 1, 5), color = rep(c(1,2,3,4),32)) \%>\%
+        gghilbertplot(val, color = factor(color), size = size, add_curve = TRUE)
 }

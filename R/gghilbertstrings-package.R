@@ -9,3 +9,6 @@
 #' @importFrom Rcpp sourceCpp
 ## usethis namespace: end
 NULL
+
+globalVariables(c(":=", "!!"))
+globalVariables(c("gghid", "value", "x", "y"))
