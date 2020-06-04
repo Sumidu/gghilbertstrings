@@ -2,20 +2,20 @@
 % Please edit documentation in R/create_id_column.R
 \name{create_id_column}
 \alias{create_id_column}
-\title{Function to create keys from a character list}
+\title{Function to create an id column from a character column}
 \usage{
 create_id_column(df, col)
 }
 \arguments{
 \item{df}{the dataframe that is used}
 
-\item{col}{the column name in NSE format}
+\item{col}{the column name in NSE format that should be converted}
 }
 \value{
 a dataframe with an additional gghid column
 }
 \description{
-Function to create keys from a character list
+Function to create an id column from a character column
 }
 \examples{
 mtcars \%>\% tibble::rownames_to_column() \%>\% create_id_column(rowname)

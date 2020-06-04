@@ -9,10 +9,10 @@ hilbertd2xy(n, d)
 \arguments{
 \item{n}{Size (must be a 2^k value, such as 4,8,16,32)}
 
-\item{d}{the value to convert to coordinates}
+\item{d}{A vector of values to be converted to coordinates}
 }
 \value{
-vector of x and y
+Tibble with columns x and y
 }
 \description{
 Hilbert conversion, distance to coordinates

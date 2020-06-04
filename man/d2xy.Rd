@@ -2,7 +2,7 @@
 % Please edit documentation in R/RcppExports.R
 \name{d2xy}
 \alias{d2xy}
-\title{Returns the position for a distance in n}
+\title{Returns the x/y-position for a distance d in n possible values}
 \usage{
 d2xy(n, d)
 }
@@ -15,5 +15,5 @@ d2xy(n, d)
 Vector of x y
 }
 \description{
-Returns the position for a distance in n
+Returns the x/y-position for a distance d in n possible values
 }

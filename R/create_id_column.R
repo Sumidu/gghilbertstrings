@@ -1,7 +1,7 @@
-#' Function to create keys from a character list
+#' Function to create an id column from a character column
 #'
 #' @param df the dataframe that is used
-#' @param col the column name in NSE format
+#' @param col the column name in NSE format that should be converted
 #'
 #' @return a dataframe with an additional gghid column
 #' @export

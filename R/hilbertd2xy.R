@@ -2,9 +2,9 @@ Rcpp::sourceCpp("src/code.cpp")
 #' Hilbert conversion, distance to coordinates
 #'
 #' @param n Size (must be a 2^k value, such as 4,8,16,32)
-#' @param d the value to convert to coordinates
+#' @param d A vector of values to be converted to coordinates
 #'
-#' @return vector of x and y
+#' @return Tibble with columns x and y
 #' @export
 #'
 #' @examples

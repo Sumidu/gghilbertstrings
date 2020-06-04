@@ -2,7 +2,7 @@
 
 using namespace Rcpp;
 
-//' Returns the position for a distance in n
+//' Returns the x/y-position for a distance d in n possible values
 //'
 //' @param n First value
 //' @param d Second value
