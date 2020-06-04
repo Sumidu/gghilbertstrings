@@ -9,8 +9,15 @@ knitr::opts_chunk$set(
   collapse = TRUE,
   comment = "#>",
   fig.path = "man/figures/README-",
-  out.width = "100%"
+  out.width = "75%",
+  fig.retina = 2
 )
+
+library(patchwork)
+library(tibble)
+library(magrittr)
+library(ggplot2)
+library(gghilbertstrings)
 ```
 
 # gghilbertstrings
@@ -38,20 +45,91 @@ And the development version from [GitHub](https://github.com/) with:
 # install.packages("devtools")
 devtools::install_github("Sumidu/gghilbertstrings")
 ```
-## Example
+## Usage
 
-This is a basic example which shows you how to solve a common problem:
+The `gghilbertstrings` package comes with functions for fast plotting of Hilbert curves in ggplot. At it's core is a fast RCPP implementation that maps a 1D vector to a 2D position.
+
+The `gghilbertplot` function creates a Hilbert curve and plots individual data points to the corners of this plot. It automatically rescales the used `ID`-variable to the full range of the Hilbert curve. The method also automatically picks a suitable level of detail able to represent all values of `ID`.
+
+The following figure shows different hilbert curves for different maximum `ID`s.
+```{r hilbert, echo=FALSE}
+p1 <- tibble(id = c(1,4)) %>% gghilbertplot(id, add_curve = T) + ggtitle("n = 4") +  theme_void()
+p2 <- tibble(id = c(1,16)) %>% gghilbertplot(id, add_curve = T) + ggtitle("n = 16")  + theme_void()
+p3 <- tibble(id = c(1,64)) %>% gghilbertplot(id, add_curve = T) + ggtitle("n = 64")  + theme_void()
+p4 <- tibble(id = c(1,256)) %>% gghilbertplot(id, add_curve = T) + ggtitle("n = 256")  + theme_void()
+
+p1 + p2 + p3 + p4 + plot_annotation(title = "Different depths of Hilbert curves")
+```
+
+
+### Plotting random data
+
+The most simple way to plot data is to generate an `id` column that ranges from 1 to n, where n is the largest value to use in the Hilbert curve. Beware: The `id`s are rounded to integers.
 
 ```{r example}
 library(gghilbertstrings)
-## basic example code
+
+# val is the ID column used here
+df <- tibble(val = 1:128, 
+       size = runif(128, 1, 5),        # create random sizes 
+       color = rep(c(1,2,3,4),32))     # create random colours
+
+gghilbertplot(df, val, 
+                color = factor(color), # render color as a factor
+                size = size, 
+                add_curve = T)         # also render the curves
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`? You can include R chunks like so:
 
-```{r cars}
-summary(cars)
+### Performance
+```r 
+# Performance benchmark
+library(microbenchmark)
+library(HilbertCurve)
+library(gghilbertstrings)
+
+# Compare the creation of coordinate systems
+mb <- microbenchmark(times = 100, 
+HilbertCurve = {
+  hc <- HilbertCurve(1, 128, level = 7)
+},
+gghilbertstrings = {
+  ggh <- hilbertd2xy(n = 2^7, df$val)
+})
 ```
 
-You'll still need to render `README.Rmd` regularly, to keep `README.md` up-to-date.
+
+
+```{r eval=TRUE, include=FALSE}
+
+# Performance benchmark
+library(microbenchmark)
+library(HilbertCurve)
+library(tidyverse)
+library(gghilbertstrings)
+benchmark_times <- 100
+
+# Compare the creation of coordinate systems
+mb <- microbenchmark::microbenchmark(times = benchmark_times, 
+  HilbertCurve = {
+    hc = HilbertCurve(1, 128, level = 7)
+},
+  gghilbertstrings = {
+    ggh <- hilbertd2xy(n = 2^7, df$val )
+  })
+
+```
+
+```{r output, echo=FALSE, message=FALSE, warning=FALSE}
+autoplot(mb) + 
+  coord_flip() + 
+  ggtitle("Comparison of runtime performance using 100 repetions on 7 levels") +
+  labs(caption = "X-Axis on log-scale")
+  
+```
+
+
+### Useful example
+
+Link: https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords under License CC0
 

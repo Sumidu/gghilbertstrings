@@ -13,7 +13,7 @@ hilbertd2xy <- function(n,d){
 
   vd2xy <- Vectorize(FUN = d2xy, vectorize.args = c("d"))
 
-  res <- as_tibble(t(vd2xy(n,d)), .name_repair = "minimal")
+  res <- tibble::as_tibble(t(vd2xy(n,d)), .name_repair = "minimal")
   names(res) <- c("x", "y")
   res
 }

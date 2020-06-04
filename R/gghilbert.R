@@ -1,91 +1,92 @@
-#
-library(magrittr)
-test_data <- list(c("abc", "abbc", "abbbc", "www.google.com", "www.google.de"),
-                  c("abc", "abbbc", "aabbc", "abcde", "www.bild.de", "www.bild.com"),
-                  c("a", "b", "c", "d", "e", "f", "g", "h"))
-
-
-if(FALSE){
-
-token <- rtweet::create_token("acv_twitter_app", consumer_key = "nfBg9C3m7XDV6hRS4UPDgrqHZ", consumer_secret = "NADNaMuMgEEIjzFl14PjvZp8fvNMywrsrjez9bENi5cqCeP0oA")
-
-token
-
-df <- rtweet::search_tweets("link", token = token, n = 5000, lang = "en")
-
-df2 <- df %>% select(screen_name, text, keys = urls_expanded_url)
 
 
 
+#' Function to create the Hilbert Plot
+#'
+#' @param df Data frame to generate plot from
+#' @param idcol The column name to be used for mapping (gghid)
+#' @param color The column to map to color
+#' @param size The column to map to size
+#' @param alpha The amount of alpha blending for the individual points
+#' @param add_curve Whether or not to add the underlying hilbert curve
+#' @param curve_alpha The amount of alpha blending for the hilbert curve
+#' @param curve_color The color of the hilbert curve
+#' @param jitter The amount of jitter to add to prevent overplotting
+#'
+#' @return a ggplot object
+#' @export
+#'
+#' @examples
+#' tibble(val = 1:128, size = runif(128, 1, 5), color = rep(c(1,2,3,4),32)) %>%
+#'         gghilbertplot(val, color = factor(color), size = size, add_curve = T)
 
-create_kv_list <- function(df, col){
-  col = enquo(col)
-
-  value_list <- df %>% pull(!!col) %>%
-    unlist() %>%
-    unique() %>%
-    na.omit() %>%
-    sort()
-
-  key_df <- tibble::tibble(value = value_list) %>%
-    dplyr::mutate(id = 1:dplyr::n()) %>%
-    dplyr::select(id, value)
-
-  key_df
-}
-
-
-gghilbertplot <- function(df, col){
-  col = enquo(col)
-  key_df <- create_kv_list(df, !!col)
-
-
-}
-
-gghilbertplot(df2, keys)
-
-
-keys <- unlist(df2$keys) %>%
-  unique() %>%
-  na.omit() %>%
-  sort()
-
-key_df <- tibble::tibble(keys) %>%
-  dplyr::mutate(id = 1:dplyr::n()) %>%
-  dplyr::select(id, keys)
+gghilbertplot <- function(df, idcol, color = NULL, size = NULL,
+                          alpha = 1,
+                          add_curve = FALSE, curve_alpha = 1,
+                          curve_color = "black",
+                          jitter = 0){
+  idcol = rlang::enquo(idcol)
+  color = rlang::enquo(color)
+  size = rlang::enquo(size)
 
 
-df3 <- df2 %>%
-  unnest(cols = keys) %>%
-  left_join(key_df) %>%
-  na.omit()
+  p_col = NULL
+  p_size = NULL
+  p_curve = NULL
+
+  # calculate the limits and match ----
+  nmax <- df %>% dplyr::pull(!!idcol) %>% max()
+  limit <- 2 ^ (ceiling(log2(nmax)))
+
+  # generate needed data ----
+  # first use the whole space and respect r's 1 indexing
+  n_data <- df %>%
+    dplyr::mutate(reld = round( ( (!!idcol - 1) / nmax) * limit))
+  # then generate xy coloumns from the RELative Distance
+  n_col <- hilbertd2xy(limit - 1, n_data$reld)
+  # rebind these columns
+  result <- n_data %>% dplyr::bind_cols(n_col)
 
 
-  nmax <- max(df3$id)
-  limit <- 2 ^ (round(log2(nmax)) + 1) - 1
+  # add hilbert curve in the background ----
+  if(add_curve){
+    all_points <- tibble(id = 0:(limit-1))
+    all_point_h <- hilbertd2xy(limit, all_points$id)
+    all_points <- all_points %>%
+      dplyr::bind_cols(all_point_h)
+    p_curve <- ggplot2::geom_path(data = all_points,
+                                  mapping = ggplot2::aes(x = x, y = y),
+                                  color = curve_color,
+                                  alpha = curve_alpha,
+                                  inherit.aes = FALSE)
+  }
 
-  df4 <- df3 %>% mutate(reld = round((id / nmax) * limit))
 
-  col <- hilbertd2xy(limit, df4$reld)
-  result <- df4 %>% bind_cols(col) %>% mutate(s_start = str_to_lower(str_sub(screen_name, 1, 1)))
+  # handle optional parameters ----
+  if(!rlang::quo_is_null(color)) {
+    p_col <- ggplot2::aes(color = !!color)
+  }
 
-  frame_df <- tibble(id = 0:limit) %>% bind_cols(hilbertd2xy(limit, .$id))
+  if(!rlang::quo_is_null(size)){
+    p_size <- ggplot2::aes(size = !!size)
+  }
 
+  if(jitter > 0) {
+    p_points <- ggplot2::geom_jitter(width = jitter, height = jitter, alpha = alpha)
+  } else {
+    p_points <- ggplot2::geom_point(alpha = alpha)
+  }
 
-
-  library(tidyverse)
-  p <- result %>%
+  result %>%
     ggplot2::ggplot() +
-    ggplot2::aes(x = x, y = y, label = keys, color = s_start) +
-    ggplot2::geom_jitter(width = 0.2, height = 0.2, alpha = 0.8) +
-    #geom_label() +
-    ggplot2::geom_path(data = frame_df, mapping = aes(x = x, y = y, label = id), color = c("black"), alpha = 0.1)+
-    theme_minimal() +
-    labs(x = "", y = "") +
-    scale_color_hue() +
-    guides(color = FALSE)
-
-    plotly::ggplotly(p)
+    ggplot2::aes(x = x, y = y) +
+    # optional aesthetics
+    p_size +
+    p_col +
+    # plot the curve
+    p_curve +
+    # add the dots
+    p_points +
+    NULL
 }
-
 

@@ -21,7 +21,8 @@ Imports:
     magrittr,
     tibble,
     lifecycle,
-    Rcpp
+    Rcpp,
+    rlang
 Suggests: 
     testthat,
     covr,

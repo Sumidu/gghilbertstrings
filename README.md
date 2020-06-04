@@ -33,28 +33,66 @@ And the development version from [GitHub](https://github.com/) with:
 devtools::install_github("Sumidu/gghilbertstrings")
 ```
 
-## Example
+## Usage
 
-This is a basic example which shows you how to solve a common problem:
+The `gghilbertstrings` package comes with functions for fast plotting of
+Hilbert curves in ggplot. At it’s core is a fast RCPP implementation
+that maps a 1D vector to a 2D position.
+
+The `gghilbertplot` function creates a Hilbert curve and plots
+individual data points to the corners of this plot. It automatically
+rescales the used `ID`-variable to the full range of the Hilbert curve.
+The method also automatically picks a suitable level of detail able to
+represent all values of `ID`.
+
+The following figure shows different hilbert curves for different
+maximum `ID`s.
+<img src="man/figures/README-hilbert-1.png" width="75%" />
+
+### Plotting random data
+
+The most simple way to plot data is to generate an `id` column that
+ranges from 1 to n, where n is the largest value to use in the Hilbert
+curve. Beware: The `id`s are rounded to integers.
 
 ``` r
 library(gghilbertstrings)
-## basic example code
+
+# val is the ID column used here
+df <- tibble(val = 1:128, 
+       size = runif(128, 1, 5),        # create random sizes 
+       color = rep(c(1,2,3,4),32))     # create random colours
+
+gghilbertplot(df, val, 
+                color = factor(color), # render color as a factor
+                size = size, 
+                add_curve = T)         # also render the curves
 ```
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+<img src="man/figures/README-example-1.png" width="75%" />
+
+### Performance
 
 ``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
+# Performance benchmark
+library(microbenchmark)
+library(HilbertCurve)
+library(gghilbertstrings)
+
+# Compare the creation of coordinate systems
+mb <- microbenchmark(times = 100, 
+HilbertCurve = {
+  hc <- HilbertCurve(1, 128, level = 7)
+},
+gghilbertstrings = {
+  ggh <- hilbertd2xy(n = 2^7, df$val)
+})
 ```
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date.
+<img src="man/figures/README-output-1.png" width="75%" />
+
+### Useful example
+
+Link:
+<https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords>
+under License CC0
