@@ -9,3 +9,4 @@
 ^docs$
 ^pkgdown$
 ^debugging$
+^\.github/workflows$
