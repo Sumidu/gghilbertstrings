@@ -10,3 +10,4 @@
 ^pkgdown$
 ^debugging$
 ^\.github/workflows$
+^\.github$
