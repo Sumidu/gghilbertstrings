@@ -7,6 +7,7 @@
 #' @param idcol The column name to be used for mapping (gghid)
 #' @param color The column to map to color
 #' @param size The column to map to size
+#' @param label The column that contains the label
 #' @param alpha The amount of alpha blending for the individual points
 #' @param add_curve Whether or not to add the underlying hilbert curve
 #' @param curve_alpha The amount of alpha blending for the hilbert curve
