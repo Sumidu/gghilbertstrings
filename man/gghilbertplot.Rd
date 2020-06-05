@@ -9,6 +9,7 @@ gghilbertplot(
   idcol,
   color = NULL,
   size = NULL,
+  label = NULL,
   alpha = 1,
   add_curve = FALSE,
   curve_alpha = 1,
@@ -24,6 +25,8 @@ gghilbertplot(
 \item{color}{The column to map to color}
 
 \item{size}{The column to map to size}
+
+\item{label}{The column to map the label to}
 
 \item{alpha}{The amount of alpha blending for the individual points}
 
