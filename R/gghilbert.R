@@ -20,7 +20,7 @@
 #' tibble::tibble(val = 1:128, size = runif(128, 1, 5), color = rep(c(1,2,3,4),32)) %>%
 #'         gghilbertplot(val, color = factor(color), size = size, add_curve = TRUE)
 
-gghilbertplot <- function(df, idcol, color = NULL, size = NULL,
+gghilbertplot <- function(df, idcol, color = NULL, size = NULL, label = NULL,
                           alpha = 1,
                           add_curve = FALSE, curve_alpha = 1,
                           curve_color = "black",
@@ -28,10 +28,12 @@ gghilbertplot <- function(df, idcol, color = NULL, size = NULL,
   idcol = rlang::enquo(idcol)
   color = rlang::enquo(color)
   size = rlang::enquo(size)
+  label = rlang::enquo(label)
 
 
   p_col = NULL
   p_size = NULL
+  p_label = NULL
   p_curve = NULL
 
   # calculate the limits and match ----
@@ -71,6 +73,10 @@ gghilbertplot <- function(df, idcol, color = NULL, size = NULL,
     p_size <- ggplot2::aes(size = !!size)
   }
 
+  if(!rlang::quo_is_null(label)){
+    p_label <- ggplot2::aes(label = !!label)
+  }
+
   if(jitter > 0) {
     p_points <- ggplot2::geom_jitter(width = jitter, height = jitter, alpha = alpha)
   } else {
@@ -82,6 +88,7 @@ gghilbertplot <- function(df, idcol, color = NULL, size = NULL,
     ggplot2::aes(x = x, y = y) +
     # optional aesthetics
     p_size +
+    p_label +
     p_col +
     # plot the curve
     p_curve +
