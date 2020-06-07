@@ -44,7 +44,7 @@ gghilbertplot <- function(df, idcol, color = NULL, size = NULL, label = NULL,
   # generate needed data ----
   # first use the whole space and respect r's 1 indexing
   n_data <- df %>%
-    dplyr::mutate(reld = round( ( (!!idcol - 1) / nmax) * limit))
+    dplyr::mutate(reld = round(((!!idcol - 1) / nmax) * limit))
   # then generate xy coloumns from the RELative Distance
   n_col <- hilbertd2xy(limit - 1, n_data$reld)
   # rebind these columns
@@ -52,8 +52,8 @@ gghilbertplot <- function(df, idcol, color = NULL, size = NULL, label = NULL,
 
 
   # add hilbert curve in the background ----
-  if(add_curve){
-    all_points <- tibble::tibble(id = 0:(limit-1))
+  if (add_curve) {
+    all_points <- tibble::tibble(id = 0:(limit - 1))
     all_point_h <- hilbertd2xy(limit, all_points$id)
     all_points <- all_points %>%
       dplyr::bind_cols(all_point_h)
@@ -66,19 +66,19 @@ gghilbertplot <- function(df, idcol, color = NULL, size = NULL, label = NULL,
 
 
   # handle optional parameters ----
-  if(!rlang::quo_is_null(color)) {
+  if (!rlang::quo_is_null(color)) {
     p_col <- ggplot2::aes(color = !!color)
   }
 
-  if(!rlang::quo_is_null(size)){
+  if (!rlang::quo_is_null(size)) {
     p_size <- ggplot2::aes(size = !!size)
   }
 
-  if(!rlang::quo_is_null(label)){
+  if (!rlang::quo_is_null(label)) {
     p_label <- ggplot2::aes(label = !!label)
   }
 
-  if(jitter > 0) {
+  if (jitter > 0) {
     p_points <- ggplot2::geom_jitter(width = jitter, height = jitter, alpha = alpha)
   } else {
     p_points <- ggplot2::geom_point(alpha = alpha)
