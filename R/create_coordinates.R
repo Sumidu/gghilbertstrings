@@ -10,7 +10,7 @@
 #' @export
 #'
 #' @examples
-#'
+#' mtcars %>% tibble::rownames_to_column() %>% create_id_column(rowname) %>% create_coordinates(gghid)
 create_coordinates <- function(df, idcol) {
   idcol <- rlang::enquo(idcol)
 

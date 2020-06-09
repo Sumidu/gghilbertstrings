@@ -20,5 +20,5 @@ Function to create coordinates for a Hilbert Curve
 This functions adds three columns to a data frame: reld, x, y
 }
 \examples{
-
+mtcars \%>\% tibble::rownames_to_column() \%>\% create_id_column(rowname) \%>\% create_coordinates(gghid)
 }
