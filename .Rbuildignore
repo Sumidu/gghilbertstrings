@@ -11,3 +11,4 @@
 ^debugging$
 ^\.github/workflows$
 ^\.github$
+^cran-comments\.md$
