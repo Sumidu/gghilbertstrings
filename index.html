@@ -38,12 +38,6 @@
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
 <li>
-  <a href="index.html">
-    <span class="fas fa fas fa-home fa-lg"></span>
-     
-  </a>
-</li>
-<li>
   <a href="reference/index.html">Reference</a>
 </li>
 <li>
@@ -87,8 +81,9 @@ install.packages("gghilbertstrings")
 ```
 -->
 <p>You can install the development version from <a href="https://github.com/">GitHub</a> with:</p>
-<div class="sourceCode" id="cb1"><pre class="r"><span class="co"># install.packages("devtools")</span>
-<span class="kw pkg">devtools</span><span class="kw ns">::</span><span class="fu">install_github</span>(<span class="st">"Sumidu/gghilbertstrings"</span>)</pre></div>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># install.packages("devtools")</span>
+<span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"Sumidu/gghilbertstrings"</span><span class="op">)</span></code></pre></div>
 </div>
 <div id="usage" class="section level2">
 <h2 class="hasAnchor">
@@ -100,41 +95,44 @@ install.packages("gghilbertstrings")
 <h3 class="hasAnchor">
 <a href="#plotting-random-data" class="anchor"></a>Plotting random data</h3>
 <p>The most simple way to plot data is to generate an <code>id</code> column that ranges from 1 to n, where n is the largest value to use in the Hilbert curve. Beware: The <code>id</code>s are rounded to integers.</p>
-<div class="sourceCode" id="cb2"><pre class="r"><span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gghilbertstrings</span>)
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Sumidu/gghilbertstrings">gghilbertstrings</a></span><span class="op">)</span>
 
 <span class="co"># val is the ID column used here</span>
-<span class="no">df</span> <span class="kw">&lt;-</span> <span class="fu">tibble</span>(<span class="kw">val</span> <span class="kw">=</span> <span class="fl">1</span>:<span class="fl">256</span>,
-       <span class="kw">size</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span>(<span class="fl">256</span>, <span class="fl">1</span>, <span class="fl">5</span>),        <span class="co"># create random sizes </span>
-       <span class="kw">color</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span>(<span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span>(<span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>),<span class="fl">64</span>))     <span class="co"># create random colours</span>
+<span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>val <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">256</span>, 
+       size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">256</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,        <span class="co"># create random sizes </span>
+       color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span><span class="op">)</span>,<span class="fl">64</span><span class="op">)</span><span class="op">)</span>     <span class="co"># create random colours</span>
 
-<span class="fu"><a href="reference/gghilbertplot.html">gghilbertplot</a></span>(<span class="no">df</span>, <span class="no">val</span>,
-                <span class="kw">color</span> <span class="kw">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span>(<span class="no">color</span>), <span class="co"># render color as a factor</span>
-                <span class="kw">size</span> <span class="kw">=</span> <span class="no">size</span>,
-                <span class="kw">add_curve</span> <span class="kw">=</span> <span class="no">T</span>)         <span class="co"># also render the curves</span></pre></div>
+<span class="fu"><a href="reference/gghilbertplot.html">gghilbertplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="va">val</span>, 
+                color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/factor.html">factor</a></span><span class="op">(</span><span class="va">color</span><span class="op">)</span>, <span class="co"># render color as a factor</span>
+                size <span class="op">=</span> <span class="va">size</span>, 
+                add_curve <span class="op">=</span> <span class="cn">T</span><span class="op">)</span>         <span class="co"># also render the curves</span></code></pre></div>
 <p><img src="reference/figures/README-example-1.png" width="75%"></p>
 </div>
 <div id="performance" class="section level3">
 <h3 class="hasAnchor">
 <a href="#performance" class="anchor"></a>Performance</h3>
-<div class="sourceCode" id="cb3"><pre class="r"><span class="co"># Performance benchmark</span>
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">microbenchmark</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">HilbertCurve</span>)
-<span class="fu"><a href="https://rdrr.io/r/base/library.html">library</a></span>(<span class="no">gghilbertstrings</span>)
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="co"># Performance benchmark</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbenchmark</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">HilbertCurve</span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Sumidu/gghilbertstrings">gghilbertstrings</a></span><span class="op">)</span>
 
 <span class="co"># Compare the creation of coordinate systems</span>
-<span class="no">mb</span> <span class="kw">&lt;-</span> <span class="fu">microbenchmark</span>(<span class="kw">times</span> <span class="kw">=</span> <span class="fl">100</span>,
-<span class="kw">HilbertCurve</span> <span class="kw">=</span> {
-  <span class="no">hc</span> <span class="kw">&lt;-</span> <span class="fu">HilbertCurve</span>(<span class="fl">1</span>, <span class="fl">256</span>, <span class="kw">level</span> <span class="kw">=</span> <span class="fl">4</span>, <span class="kw">newpage</span> <span class="kw">=</span> <span class="fl">FALSE</span>)
-},
-<span class="kw">gghilbertstrings</span> <span class="kw">=</span> {
-  <span class="no">ggh</span> <span class="kw">&lt;-</span> <span class="fu"><a href="reference/hilbertd2xy.html">hilbertd2xy</a></span>(<span class="kw">n</span> <span class="kw">=</span> <span class="fl">2</span>^<span class="fl">7</span>, <span class="no">df</span>$<span class="no">val</span>)
-})</pre></div>
+<span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="op">(</span>times <span class="op">=</span> <span class="fl">100</span>, 
+HilbertCurve <span class="op">=</span> <span class="op">{</span>
+  <span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu">HilbertCurve</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">256</span>, level <span class="op">=</span> <span class="fl">4</span>, newpage <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+<span class="op">}</span>,
+gghilbertstrings <span class="op">=</span> <span class="op">{</span>
+  <span class="va">ggh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/hilbertd2xy.html">hilbertd2xy</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span><span class="op">^</span><span class="fl">7</span>, <span class="va">df</span><span class="op">$</span><span class="va">val</span><span class="op">)</span>
+<span class="op">}</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-output-1.png" width="75%"></p>
 <p>Comparing both libraries including plotting 256 points of data on 4 levels.</p>
-<div class="sourceCode" id="cb4"><pre class="r"><span class="fu">autoplot</span>(<span class="no">mc2</span>) +
-  <span class="fu">coord_flip</span>() +
-  <span class="fu">ggtitle</span>(<span class="st">"Comparison of runtime performance using 100 repetions on 4 levels"</span>) +
-  <span class="fu">labs</span>(<span class="kw">caption</span> <span class="kw">=</span> <span class="st">"X-Axis on log-scale"</span>)</pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">mc2</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
+  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Comparison of runtime performance using 100 repetions on 4 levels"</span><span class="op">)</span> <span class="op">+</span>
+  <span class="fu">labs</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"X-Axis on log-scale"</span><span class="op">)</span></code></pre></div>
 <p><img src="reference/figures/README-comp2-1.png" width="75%"></p>
 </div>
 <div id="useful-example" class="section level3">
@@ -188,7 +186,7 @@ install.packages("gghilbertstrings")
 </div>
 
 <div class="pkgdown">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.5.1.9000.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/">pkgdown</a> 1.6.1.9000.</p>
 </div>
 
       </footer>
