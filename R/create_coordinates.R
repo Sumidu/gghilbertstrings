@@ -15,7 +15,7 @@ create_coordinates <- function(df, idcol) {
   idcol <- rlang::enquo(idcol)
 
   max_value <- df %>% dplyr::pull(!!idcol) %>% max()
-  limit <- 2 ^ (ceiling(log2(max_value)))
+  limit <- 4 ^ (ceiling(log(max_value, 4)))
 
   n_data <- df %>%
     dplyr::mutate(reld = round(((!!idcol - 1) / max_value) * limit))

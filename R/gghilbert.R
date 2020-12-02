@@ -39,12 +39,12 @@ gghilbertplot <- function(df, idcol, color = NULL, size = NULL, label = NULL,
 
   # calculate the limits and match ----
   nmax <- df %>% dplyr::pull(!!idcol) %>% max()
-  limit <- 2 ^ (ceiling(log2(nmax)))
+  limit <- 4 ^ (ceiling(log(nmax, base = 4)))
 
   # generate needed data ----
   # first use the whole space and respect r's 1 indexing
   n_data <- df %>%
-    dplyr::mutate(reld = round(((!!idcol - 1) / nmax) * limit))
+    dplyr::mutate(reld = round(((!!idcol - 1) * limit) / nmax))
   # then generate xy coloumns from the RELative Distance
   n_col <- hilbertd2xy(limit - 1, n_data$reld)
   # rebind these columns
