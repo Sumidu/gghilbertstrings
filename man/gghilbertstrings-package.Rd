@@ -4,9 +4,9 @@
 \name{gghilbertstrings-package}
 \alias{gghilbertstrings}
 \alias{gghilbertstrings-package}
-\title{gghilbertstrings: What the Package Does (One Line, Title Case)}
+\title{gghilbertstrings: A Fast ggplot2-based Implementation of Hilbert Curves}
 \description{
-What the package does (one paragraph).
+This package provides functions that help create plots based on Hilbert Curves.
 }
 \seealso{
 Useful links:

@@ -1,5 +1,5 @@
 Package: gghilbertstrings
-Title: What the Package Does (One Line, Title Case)
+Title: A Fast ggplot2-based Implementation of Hilbert Curves
 Version: 0.1.0
 Authors@R: 
     person(given = "André",
@@ -7,7 +7,7 @@ Authors@R:
            role = c("aut", "cre"),
            email = "andrecalerovaldez@gmail.com",
            comment = c(ORCID = "0000-0002-6214-1461"))
-Description: What the package does (one paragraph).
+Description: This package provides functions that help create plots based on Hilbert Curves. 
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
