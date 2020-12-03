@@ -1,3 +1,5 @@
+# gghilbertstrings 0.2.0
+
 # gghilbertstrings 0.1.0
 
 * added both functions required for plotting Hilbert curves from character columns
