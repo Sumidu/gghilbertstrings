@@ -1,3 +1,5 @@
+# gghilbertstrings 0.3.0
+
 # gghilbertstrings 0.2.0
 * updated the coordinate system to always be rectangular by using base 4 instead of 2 
 
