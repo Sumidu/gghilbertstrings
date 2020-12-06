@@ -15,6 +15,7 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.1
 URL: https://github.com/Sumidu/gghilbertstrings
 BugReports: https://github.com/Sumidu/gghilbertstrings/issues
+biocViews:
 Imports: 
     ggplot2,
     dplyr,
