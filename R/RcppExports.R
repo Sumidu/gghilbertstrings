@@ -10,3 +10,12 @@ d2xy <- function(n, d) {
     .Call(`_gghilbertstrings_d2xy`, n, d)
 }
 
+#' Returns the x/y-position for a Vector of distances d in n possible values
+#'
+#' @param n Size of
+#' @param d Second value
+#' @return Matrix of x y values
+d2xy2 <- function(n, d) {
+    .Call(`_gghilbertstrings_d2xy2`, n, d)
+}
+

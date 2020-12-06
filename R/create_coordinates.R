@@ -21,7 +21,7 @@ create_coordinates <- function(df, idcol) {
     dplyr::mutate(reld = round(((!!idcol - 1) / max_value) * limit))
 
   # then generate xy coloumns from the RELative Distance
-  n_col <- hilbertd2xy(limit - 1, n_data$reld)
+  n_col <- hilbertd2xy(limit, n_data$reld)
   # rebind these columns
   result <- n_data %>% dplyr::bind_cols(n_col)
 

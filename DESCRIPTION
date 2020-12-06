@@ -26,7 +26,9 @@ Imports:
 Suggests: 
     testthat,
     covr,
-    spelling
+    spelling,
+    profvis,
+    HilbertCurve
 Language: en-US
 RdMacros: lifecycle
 LinkingTo: 

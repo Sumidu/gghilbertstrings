@@ -12,3 +12,4 @@
 ^\.github/workflows$
 ^\.github$
 ^cran-comments\.md$
+^my_tests$

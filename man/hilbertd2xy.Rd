@@ -9,7 +9,7 @@ hilbertd2xy(n, d)
 \arguments{
 \item{n}{Size (must be a 2^k value, such as 4,8,16,32)}
 
-\item{d}{A vector of values to be converted to coordinates}
+\item{d}{A vector of values to be converted to coordinates (starts with 0)}
 }
 \value{
 Tibble with columns x and y

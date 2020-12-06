@@ -17,9 +17,22 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
+// d2xy2
+NumericMatrix d2xy2(int n, NumericVector d);
+RcppExport SEXP _gghilbertstrings_d2xy2(SEXP nSEXP, SEXP dSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type d(dSEXP);
+    rcpp_result_gen = Rcpp::wrap(d2xy2(n, d));
+    return rcpp_result_gen;
+END_RCPP
+}
 
 static const R_CallMethodDef CallEntries[] = {
     {"_gghilbertstrings_d2xy", (DL_FUNC) &_gghilbertstrings_d2xy, 2},
+    {"_gghilbertstrings_d2xy2", (DL_FUNC) &_gghilbertstrings_d2xy2, 2},
     {NULL, NULL, 0}
 };
 
