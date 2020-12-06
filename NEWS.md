@@ -1,4 +1,5 @@
 # gghilbertstrings 0.3.0
+* updated RCPP code to use vectorized input (speed improved 2 orders of magnitude)
 
 # gghilbertstrings 0.2.0
 * updated the coordinate system to always be rectangular by using base 4 instead of 2 
