@@ -112,32 +112,34 @@ install.packages("gghilbertstrings")
 <div id="performance" class="section level3">
 <h3 class="hasAnchor">
 <a href="#performance" class="anchor"></a>Performance</h3>
+<p>We run the creation of a coordinate system 10 times. This means creating 1 entry for every possible corner in the Hilbert Curve.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="co"># Performance benchmark</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbenchmark</span><span class="op">)</span>
+<code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">microbenchmark</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/HilbertCurve">HilbertCurve</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Sumidu/gghilbertstrings">gghilbertstrings</a></span><span class="op">)</span>
-
-<span class="co"># Compare the creation of coordinate systems</span>
-<span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="op">(</span>times <span class="op">=</span> <span class="fl">100</span>, 
-HilbertCurve <span class="op">=</span> <span class="op">{</span>
-  <span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/HilbertCurve/man/HilbertCurve.html">HilbertCurve</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">256</span>, level <span class="op">=</span> <span class="fl">4</span>, newpage <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
-<span class="op">}</span>,
-gghilbertstrings <span class="op">=</span> <span class="op">{</span>
-  <span class="va">ggh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/hilbertd2xy.html">hilbertd2xy</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">2</span><span class="op">^</span><span class="fl">7</span>, <span class="va">df</span><span class="op">$</span><span class="va">val</span><span class="op">)</span>
-<span class="op">}</span><span class="op">)</span></code></pre></div>
+<span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html">list</a></span><span class="op">(</span><span class="op">)</span>
+<span class="kw">for</span> <span class="op">(</span><span class="va">i</span> <span class="kw">in</span> <span class="fl">1</span><span class="op">:</span><span class="fl">10</span><span class="op">)</span> <span class="op">{</span>
+  <span class="va">df</span> <span class="op">&lt;-</span> <span class="fu">tibble</span><span class="op">(</span>val <span class="op">=</span> <span class="fl">1</span><span class="op">:</span><span class="fl">4</span><span class="op">^</span><span class="va">i</span>,
+               size <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/stats/Uniform.html">runif</a></span><span class="op">(</span><span class="fl">4</span><span class="op">^</span><span class="va">i</span>, <span class="fl">1</span>, <span class="fl">5</span><span class="op">)</span>,
+               <span class="co"># create random sizes</span>
+               color <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/rep.html">rep</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">2</span>, <span class="fl">3</span>, <span class="fl">4</span><span class="op">)</span>, <span class="fl">4</span><span class="op">^</span><span class="op">(</span><span class="va">i</span> <span class="op">-</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span><span class="op">)</span>
+  <span class="va">values</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">val</span>
+  <span class="va">mb</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="op">(</span>times <span class="op">=</span> <span class="va">reps</span>,
+                     HilbertCurve <span class="op">=</span> <span class="op">{</span>
+                       <span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/HilbertCurve/man/HilbertCurve.html">HilbertCurve</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">^</span><span class="va">i</span>, level <span class="op">=</span> <span class="va">i</span>, newpage <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+                     <span class="op">}</span>,
+                     gghilbertstrings <span class="op">=</span> <span class="op">{</span>
+                       <span class="va">ggh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/hilbertd2xy.html">hilbertd2xy</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span><span class="op">^</span><span class="va">i</span>, <span class="va">values</span><span class="op">)</span>
+                     <span class="op">}</span><span class="op">)</span>
+<span class="op">}</span></code></pre></div>
 <p><img src="reference/figures/README-output-1.png" width="75%"></p>
-<p>Comparing both libraries including plotting 256 points of data on 4 levels.</p>
-<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
-<code class="sourceCode R"><span class="fu">autoplot</span><span class="op">(</span><span class="va">mc2</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">coord_flip</span><span class="op">(</span><span class="op">)</span> <span class="op">+</span> 
-  <span class="fu">ggtitle</span><span class="op">(</span><span class="st">"Comparison of runtime performance using 100 repetions on 4 levels"</span><span class="op">)</span> <span class="op">+</span>
-  <span class="fu">labs</span><span class="op">(</span>caption <span class="op">=</span> <span class="st">"X-Axis on log-scale"</span><span class="op">)</span></code></pre></div>
-<p><img src="reference/figures/README-comp2-1.png" width="75%"></p>
 </div>
 <div id="useful-example" class="section level3">
 <h3 class="hasAnchor">
 <a href="#useful-example" class="anchor"></a>Useful example</h3>
+<p>We use the <code>eliasdabbas/search-engine-results-flights-tickets-keywords</code> data set on <a href="Kaggle">https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords</a> as an example for a simple analysis. We map the full search URLs to the Hilbert curve and then add points when the URL was present for a specific search term. By comparing resulting facets we can see systematic difference in which provides show up for which search term.</p>
+<p><img src="reference/figures/README-example_flt-1.png" width="75%"></p>
 <p>Link: <a href="https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords" class="uri">https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords</a> under License CC0</p>
 </div>
 </div>
