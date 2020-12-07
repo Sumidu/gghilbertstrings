@@ -13,11 +13,16 @@ knitr::opts_chunk$set(
   fig.retina = 2
 )
 
+library(tidyverse)
 library(patchwork)
 library(tibble)
 library(magrittr)
 library(ggplot2)
 library(gghilbertstrings)
+library(glue)
+
+reps <- 10 #takes about 50 seconds on iMac i9 3.5GHz
+size_exponent <- 11
 ```
 
 # gghilbertstrings
@@ -86,20 +91,29 @@ gghilbertplot(df, val,
 
 
 ### Performance
+We run the creation of a coordinate system `r reps` times. This means creating 1 entry for every possible corner in the Hilbert Curve.
+
+
 ```r 
-# Performance benchmark
 library(microbenchmark)
 library(HilbertCurve)
+library(tidyverse)
 library(gghilbertstrings)
-
-# Compare the creation of coordinate systems
-mb <- microbenchmark(times = 100, 
-HilbertCurve = {
-  hc <- HilbertCurve(1, 256, level = 4, newpage = FALSE)
-},
-gghilbertstrings = {
-  ggh <- hilbertd2xy(n = 2^7, df$val)
-})
+mb <- list()
+for (i in 1:10) {
+  df <- tibble(val = 1:4^i,
+               size = runif(4^i, 1, 5),
+               # create random sizes
+               color = rep(c(1, 2, 3, 4), 4^(i - 1)))
+  values <- df$val
+  mb[[i]] <- microbenchmark(times = reps,
+                     HilbertCurve = {
+                       hc <- HilbertCurve(1, 4^i, level = i, newpage = FALSE)
+                     },
+                     gghilbertstrings = {
+                       ggh <- hilbertd2xy(n = 4^i, values)
+                     })
+}
 ```
 
 
@@ -111,49 +125,95 @@ library(microbenchmark)
 library(HilbertCurve)
 library(tidyverse)
 library(gghilbertstrings)
-benchmark_times <- 100
-
-# Compare the creation of coordinate systems
-mb <- microbenchmark::microbenchmark(times = benchmark_times, 
-  HilbertCurve = {
-    hc = HilbertCurve(1, 256, level = 4, newpage = FALSE)
-},
-  gghilbertstrings = {
-    ggh <- hilbertd2xy(n = 256, df$val)
-  })
+mb <- list()
+for (i in 1:10) {
+  df <- tibble(val = 1:4^i,
+               size = runif(4^i, 1, 5),
+               # create random sizes
+               color = rep(c(1, 2, 3, 4), 4^(i - 1)))
+  values <- df$val
+  mb[[i]] <- microbenchmark(times = reps,
+                     HilbertCurve = {
+                       hc <- HilbertCurve(1, 4^i, level = i, newpage = FALSE)
+                     },
+                     gghilbertstrings = {
+                       ggh <- hilbertd2xy(n = 4^i, values)
+                     })
+}
+res <- data.frame()
+for (i in 1:length(mb)) {
+  tmp <- mb[[i]] %>% as_tibble() %>% mutate(depth = i)  
+  res <- res %>% bind_rows(tmp)
+}
 
 ```
 
 ```{r output, echo=FALSE, message=FALSE, warning=FALSE}
-autoplot(mb) + 
-  coord_flip() + 
-  ggtitle("Comparison of runtime performance using 100 repetions on 4 levels") +
-  labs(caption = "X-Axis on log-scale")
-  
+library(scales)
+res %>% mutate(time = time/1000) %>% 
+  ggplot() + 
+  aes(x = depth, y = time, color = expr) + 
+  geom_jitter(width = 0.1, height = 0, alpha = 0.2) +
+  geom_smooth() + 
+  scale_y_log10(labels = comma) +
+  scale_x_continuous(breaks = 3:14, minor_breaks = NULL) +
+  scale_color_viridis_d(begin = 0.5, end = 0.8, option = "D") +
+  labs(x = "Order of Hilbert Curve", y = "Time in ms (log-scale)", color = "Package",
+       title = "Our package is two orders of magnitute faster",
+       subtitle = glue("Comparison of {reps} repetitions across all orders."),
+       caption = "Order 14 means 268,435,456 coordinates")
 ```
 
-```{r compplots, include=FALSE, fig.asp=1}
-mc2 <- microbenchmark(
-  HilbertCurve = {
-    hc = HilbertCurve(1, 256, level = 4, reference = TRUE, newpage = FALSE)
-    hc_points(hc, x1 = df$val, x2 = df$val)
-  },
-  gghilbertstrings = {
-    df %>% gghilbertplot(val, add_curve = TRUE)
-  }
-)
-```
-
-Comparing both libraries including plotting 256 points of data on 4 levels.
-```{r comp2, message=FALSE, warning=FALSE}
-autoplot(mc2) + 
-  coord_flip() + 
-  ggtitle("Comparison of runtime performance using 100 repetions on 4 levels") +
-  labs(caption = "X-Axis on log-scale")
-```
 
 
 ### Useful example
+
+We use the `eliasdabbas/search-engine-results-flights-tickets-keywords` data set on [https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords](Kaggle) as an example for a simple analysis. We map the full search URLs to the Hilbert curve and then add points when the URL was present for a specific search term. By comparing resulting facets we can see systematic difference in which provides show up for which search term.
+
+```{r example_flt, echo=FALSE, message=FALSE, warning=FALSE}
+#library(kaggler)
+#kgl_auth() # requires a kaggle token.
+
+data_set <- "eliasdabbas/search-engine-results-flights-tickets-keywords"
+#refs <- kgl_datasets_list(owner_dataset = data_set)
+#refs$datasetFiles
+#kgl_datasets_download(owner_dataset = data_set, 
+#                      fileName = refs$datasetFiles$name[1], datasetVersionNumber = 14)
+
+read_plus <- function(flnm) {
+    read_csv(flnm) %>% 
+        mutate(filename = flnm)
+}
+
+df_with_sources <-
+    list.files(path = "my_tests", 
+               pattern = "*.csv", 
+               full.names = T) %>% 
+    map_df(~read_plus(.))
+
+
+comparison <- df_with_sources$searchTerms %>% unique() %>% head(4)
+
+
+df_with_sources %>%
+  create_id_column(link) %>% 
+  filter(searchTerms %in% comparison) %>% 
+  gghilbertplot(gghid, 
+                color = displayLink, 
+                size = rank,
+                label = displayLink,
+                alpha = 0.1,
+                jitter = 0.1,
+                add_curve = F,
+                curve_alpha = 0.1) +
+  aes(group = displayLink) +
+  facet_wrap(~searchTerms) +
+  labs(title = "Comparsion of domains shown for different search queries") +
+  guides(color = FALSE) -> p
+
+p
+#plotly::ggplotly(p)
+```
 
 Link: https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords under License CC0
 

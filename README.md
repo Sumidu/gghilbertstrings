@@ -82,37 +82,44 @@ gghilbertplot(df, val,
 
 ### Performance
 
+We run the creation of a coordinate system 10 times. This means creating
+1 entry for every possible corner in the Hilbert Curve.
+
 ``` r
-# Performance benchmark
 library(microbenchmark)
 library(HilbertCurve)
+library(tidyverse)
 library(gghilbertstrings)
-
-# Compare the creation of coordinate systems
-mb <- microbenchmark(times = 100, 
-HilbertCurve = {
-  hc <- HilbertCurve(1, 256, level = 4, newpage = FALSE)
-},
-gghilbertstrings = {
-  ggh <- hilbertd2xy(n = 2^7, df$val)
-})
+mb <- list()
+for (i in 1:10) {
+  df <- tibble(val = 1:4^i,
+               size = runif(4^i, 1, 5),
+               # create random sizes
+               color = rep(c(1, 2, 3, 4), 4^(i - 1)))
+  values <- df$val
+  mb[[i]] <- microbenchmark(times = reps,
+                     HilbertCurve = {
+                       hc <- HilbertCurve(1, 4^i, level = i, newpage = FALSE)
+                     },
+                     gghilbertstrings = {
+                       ggh <- hilbertd2xy(n = 4^i, values)
+                     })
+}
 ```
 
 <img src="man/figures/README-output-1.png" width="75%" />
 
-Comparing both libraries including plotting 256 points of data on 4
-levels.
-
-``` r
-autoplot(mc2) + 
-  coord_flip() + 
-  ggtitle("Comparison of runtime performance using 100 repetions on 4 levels") +
-  labs(caption = "X-Axis on log-scale")
-```
-
-<img src="man/figures/README-comp2-1.png" width="75%" />
-
 ### Useful example
+
+We use the `eliasdabbas/search-engine-results-flights-tickets-keywords`
+data set on
+[https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords](Kaggle)
+as an example for a simple analysis. We map the full search URLs to the
+Hilbert curve and then add points when the URL was present for a
+specific search term. By comparing resulting facets we can see
+systematic difference in which provides show up for which search term.
+
+<img src="man/figures/README-example_flt-1.png" width="75%" />
 
 Link:
 <https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords>
