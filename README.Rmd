@@ -51,8 +51,8 @@ install.packages("gghilbertstrings")
 You can install the development version from [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("Sumidu/gghilbertstrings")
+# install.packages("remotes") # run only if not installed
+remotes::install_github("Sumidu/gghilbertstrings")
 ```
 ## Usage
 
@@ -168,7 +168,7 @@ res %>% mutate(time = time/1000) %>%
 
 ### Useful example
 
-We use the `eliasdabbas/search-engine-results-flights-tickets-keywords` data set on [https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords](Kaggle) as an example for a simple analysis. We map the full search URLs to the Hilbert curve and then add points when the URL was present for a specific search term. By comparing resulting facets we can see systematic difference in which provides show up for which search term.
+We use the `eliasdabbas/search-engine-results-flights-tickets-keywords` data set on [Kaggle](https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords) as an example for a simple analysis. We map the full search URLs to the Hilbert curve and then add points when the URL was present for a specific search term. By comparing resulting facets we can see systematic difference in which provides show up for which search term.
 
 ```{r example_flt, echo=FALSE, message=FALSE, warning=FALSE}
 #library(kaggler)
@@ -185,6 +185,7 @@ read_plus <- function(flnm) {
         mutate(filename = flnm)
 }
 
+# files must be added in the my_tests folder for this section to work.
 df_with_sources <-
     list.files(path = "my_tests", 
                pattern = "*.csv", 

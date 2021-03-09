@@ -38,8 +38,8 @@ You can install the development version from
 [GitHub](https://github.com/) with:
 
 ``` r
-# install.packages("devtools")
-devtools::install_github("Sumidu/gghilbertstrings")
+# install.packages("remotes") # run only if not installed
+remotes::install_github("Sumidu/gghilbertstrings")
 ```
 
 ## Usage
@@ -113,7 +113,7 @@ for (i in 1:10) {
 
 We use the `eliasdabbas/search-engine-results-flights-tickets-keywords`
 data set on
-[https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords](Kaggle)
+[Kaggle](https://www.kaggle.com/eliasdabbas/search-engine-results-flights-tickets-keywords)
 as an example for a simple analysis. We map the full search URLs to the
 Hilbert curve and then add points when the URL was present for a
 specific search term. By comparing resulting facets we can see
