@@ -40,13 +40,12 @@ This package provides an easy access to using Hilbert curves in `ggplot2`.
 
 ## Installation
 
-<!--
+
 You can install the released version of gghilbertstrings from [CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("gghilbertstrings")
 ```
--->
 
 You can install the development version from [GitHub](https://github.com/) with:
 
@@ -122,6 +121,7 @@ for (i in 1:10) {
 
 # Performance benchmark
 library(microbenchmark)
+remotes::install_github("jokergoo/HilbertCurve")
 library(HilbertCurve)
 library(tidyverse)
 library(gghilbertstrings)

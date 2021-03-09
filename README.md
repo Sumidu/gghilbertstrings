@@ -26,13 +26,12 @@ This package provides an easy access to using Hilbert curves in
 
 ## Installation
 
-<!--
-You can install the released version of gghilbertstrings from [CRAN](https://CRAN.R-project.org) with:
+You can install the released version of gghilbertstrings from
+[CRAN](https://CRAN.R-project.org) with:
 
 ``` r
 install.packages("gghilbertstrings")
 ```
--->
 
 You can install the development version from
 [GitHub](https://github.com/) with:
