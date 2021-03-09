@@ -28,8 +28,7 @@ Suggests:
     testthat,
     covr,
     spelling,
-    profvis,
-    HilbertCurve
+    profvis
 Language: en-US
 RdMacros: lifecycle
 LinkingTo: 
