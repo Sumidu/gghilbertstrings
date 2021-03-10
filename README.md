@@ -12,7 +12,7 @@ status](https://ci.appveyor.com/api/projects/status/github/Sumidu/gghilbertstrin
 [![Codecov test
 coverage](https://codecov.io/gh/Sumidu/gghilbertstrings/branch/master/graph/badge.svg)](https://codecov.io/gh/Sumidu/gghilbertstrings?branch=master)
 [![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 <!-- badges: end -->
 
 A [Hilbert curve](https://en.wikipedia.org/wiki/Hilbert_curve) (also

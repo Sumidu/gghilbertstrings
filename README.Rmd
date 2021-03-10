@@ -31,7 +31,7 @@ size_exponent <- 11
 [![Travis build status](https://travis-ci.com/Sumidu/gghilbertstrings.svg?branch=master)](https://travis-ci.com/Sumidu/gghilbertstrings)
 [![AppVeyor build status](https://ci.appveyor.com/api/projects/status/github/Sumidu/gghilbertstrings?branch=master&svg=true)](https://ci.appveyor.com/project/Sumidu/gghilbertstrings)
 [![Codecov test coverage](https://codecov.io/gh/Sumidu/gghilbertstrings/branch/master/graph/badge.svg)](https://codecov.io/gh/Sumidu/gghilbertstrings?branch=master)
-[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://www.tidyverse.org/lifecycle/#experimental)
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 <!-- badges: end -->
 
 A [Hilbert curve](https://en.wikipedia.org/wiki/Hilbert_curve) (also known as a Hilbert space-filling curve) is a continuous fractal space-filling curve first described by the German mathematician David Hilbert in 1891, as a variant of the space-filling Peano curves discovered by Giuseppe Peano in 1890 (from Wikipedia).
