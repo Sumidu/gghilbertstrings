@@ -1,5 +1,5 @@
 Package: gghilbertstrings
-Title: A Fast ggplot2-Based Implementation of Hilbert Curves
+Title: A Fast 'ggplot2'-Based Implementation of Hilbert Curves
 Version: 0.3.0
 Authors@R: 
     person(given = "André",

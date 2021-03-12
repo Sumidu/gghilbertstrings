@@ -4,7 +4,7 @@
 \name{gghilbertstrings-package}
 \alias{gghilbertstrings}
 \alias{gghilbertstrings-package}
-\title{gghilbertstrings: A Fast ggplot2-Based Implementation of Hilbert Curves}
+\title{gghilbertstrings: A Fast 'ggplot2'-Based Implementation of Hilbert Curves}
 \description{
 A set of functions that help to create plots based on Hilbert Curves.
 }
