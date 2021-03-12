@@ -3,7 +3,7 @@
 #library(testthat)
 test_that("Distance to XY-Position works", {
   # test some manual examples
-  for (i in 1:15) {
+  for (i in 1:10) {
     # 0 must always be at 0,0
     expect_equal(hilbertd2xy(4 ^ i, 0), tibble(x = c(0), y = (0)))
     # test that last element is always at lower right corner

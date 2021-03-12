@@ -14,6 +14,8 @@ coverage](https://codecov.io/gh/Sumidu/gghilbertstrings/branch/master/graph/badg
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R-CMD-check](https://github.com/Sumidu/gghilbertstrings/workflows/R-CMD-check/badge.svg)](https://github.com/Sumidu/gghilbertstrings/actions)
+[![CRAN
+status](https://www.r-pkg.org/badges/version/gghilbertstrings)](https://CRAN.R-project.org/package=gghilbertstrings)
 <!-- badges: end -->
 
 A [Hilbert curve](https://en.wikipedia.org/wiki/Hilbert_curve) (also

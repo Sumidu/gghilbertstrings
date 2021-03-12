@@ -33,6 +33,7 @@ size_exponent <- 11
 [![Codecov test coverage](https://codecov.io/gh/Sumidu/gghilbertstrings/branch/master/graph/badge.svg)](https://codecov.io/gh/Sumidu/gghilbertstrings?branch=master)
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html)
 [![R-CMD-check](https://github.com/Sumidu/gghilbertstrings/workflows/R-CMD-check/badge.svg)](https://github.com/Sumidu/gghilbertstrings/actions)
+[![CRAN status](https://www.r-pkg.org/badges/version/gghilbertstrings)](https://CRAN.R-project.org/package=gghilbertstrings)
 <!-- badges: end -->
 
 A [Hilbert curve](https://en.wikipedia.org/wiki/Hilbert_curve) (also known as a Hilbert space-filling curve) is a continuous fractal space-filling curve first described by the German mathematician David Hilbert in 1891, as a variant of the space-filling Peano curves discovered by Giuseppe Peano in 1890 (from Wikipedia).
@@ -160,7 +161,7 @@ res %>% mutate(time = time/1000) %>%
   scale_x_continuous(breaks = 3:14, minor_breaks = NULL) +
   scale_color_viridis_d(begin = 0.5, end = 0.8, option = "D") +
   labs(x = "Order of Hilbert Curve", y = "Time in ms (log-scale)", color = "Package",
-       title = "Our package is two orders of magnitute faster",
+       title = "This package is two orders of magnitute faster",
        subtitle = glue("Comparison of {reps} repetitions across all orders."),
        caption = "Order 14 means 268,435,456 coordinates")
 ```
