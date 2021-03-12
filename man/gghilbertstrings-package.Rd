@@ -6,7 +6,13 @@
 \alias{gghilbertstrings-package}
 \title{gghilbertstrings: A Fast 'ggplot2'-Based Implementation of Hilbert Curves}
 \description{
-A set of functions that help to create plots based on Hilbert Curves.
+A set of functions that help to create plots based on Hilbert curves. 
+    Hilbert curves are used to map one dimensional data into the 2D plane.
+    The package provides a function that generate a 2D coordinate from an 
+    integer position. As a specific use case the package provides a function 
+    that allows mapping a character column in a data frame into 2D space 
+    using 'ggplot2'. This allows visually comparing long lists of URLs, words,
+    genes or other data that has a fixed order and position.
 }
 \seealso{
 Useful links:

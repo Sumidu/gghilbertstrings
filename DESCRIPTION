@@ -7,7 +7,13 @@ Authors@R:
            role = c("aut", "cre"),
            email = "andrecalerovaldez@gmail.com",
            comment = c(ORCID = "0000-0002-6214-1461"))
-Description: A set of functions that help to create plots based on Hilbert Curves. 
+Description: A set of functions that help to create plots based on Hilbert curves. 
+    Hilbert curves are used to map one dimensional data into the 2D plane.
+    The package provides a function that generate a 2D coordinate from an 
+    integer position. As a specific use case the package provides a function 
+    that allows mapping a character column in a data frame into 2D space 
+    using 'ggplot2'. This allows visually comparing long lists of URLs, words,
+    genes or other data that has a fixed order and position.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

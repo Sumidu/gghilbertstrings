@@ -13,3 +13,4 @@
 ^\.github$
 ^cran-comments\.md$
 ^my_tests$
+^cranchecks.R$
