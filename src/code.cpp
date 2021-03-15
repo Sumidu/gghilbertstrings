@@ -8,10 +8,10 @@ using namespace Rcpp;
 //' @param d Second value
 //' @return Vector of x y
 // [[Rcpp::export]]
-NumericVector d2xy(int n, int d) {
+NumericVector d2xy(long n, long d) {
   NumericVector output(2);
-  int rx, ry, s, t=d;
-  int x = 0; int y = 0;
+  long rx, ry, s, t=d;
+  long x = 0; long y = 0;
   //*x = *y = 0;
   // loop sqrt(n) times
   for (s=1; s<n; s*=2) {
@@ -25,7 +25,7 @@ NumericVector d2xy(int n, int d) {
       }
 
       //Swap x and y
-      int t2  = x;
+      long t2  = x;
       x = y;
       y = t2;
     }
@@ -47,19 +47,19 @@ NumericVector d2xy(int n, int d) {
 //' @param d Second value
 //' @return Matrix of x y values
 // [[Rcpp::export]]
-NumericMatrix d2xy2(int n, NumericVector d) {
-  int l = d.size();
+NumericMatrix d2xy2(long n, NumericVector d) {
+  long l = d.size();
   NumericMatrix output(l, 2);
-  int order = (log((int)n) / log((int)4));
-  int offset = 0;
-  int offset2 = 0;
+  long order = (log((long)n) / log(4L));
+  long offset = 0;
+  long offset2 = 0;
   if (order % 2 == 1) {
     offset = -l;
     offset2 = l;
   }
-  for (int i = 0; i < l; i ++) {
-    int rx, ry, s, t=d[i];
-    int x = 0; int y = 0;
+  for (long i = 0; i < l; i ++) {
+    long rx, ry, s, t=d[i];
+    long x = 0; long y = 0;
     //*x = *y = 0;
     // loop sqrt(n) times
     for (s=1; s<n; s*=2) {
@@ -73,7 +73,7 @@ NumericMatrix d2xy2(int n, NumericVector d) {
         }
 
         //Swap x and y
-        int t2 = x;
+        long t2 = x;
         x = y;
         y = t2;
       }

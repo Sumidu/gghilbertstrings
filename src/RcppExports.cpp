@@ -6,24 +6,24 @@
 using namespace Rcpp;
 
 // d2xy
-NumericVector d2xy(int n, int d);
+NumericVector d2xy(long n, long d);
 RcppExport SEXP _gghilbertstrings_d2xy(SEXP nSEXP, SEXP dSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
-    Rcpp::traits::input_parameter< int >::type d(dSEXP);
+    Rcpp::traits::input_parameter< long >::type n(nSEXP);
+    Rcpp::traits::input_parameter< long >::type d(dSEXP);
     rcpp_result_gen = Rcpp::wrap(d2xy(n, d));
     return rcpp_result_gen;
 END_RCPP
 }
 // d2xy2
-NumericMatrix d2xy2(int n, NumericVector d);
+NumericMatrix d2xy2(long n, NumericVector d);
 RcppExport SEXP _gghilbertstrings_d2xy2(SEXP nSEXP, SEXP dSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< long >::type n(nSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type d(dSEXP);
     rcpp_result_gen = Rcpp::wrap(d2xy2(n, d));
     return rcpp_result_gen;
