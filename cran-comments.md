@@ -12,3 +12,9 @@ There was an error on i386-pc-solaris2.10 (32-bit) from calling a C function.
 
 I changed all calls to log(...) to log((long)...) to ensure the long version
 of log is called.
+
+## Another problem was that the package could not be installed
+
+I was unaware that it was necessary to increase version number after the 
+initial acceptance to CRAN. So the version number was increase in the 
+patch-release.
