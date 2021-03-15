@@ -1,4 +1,5 @@
 # gghilbertstrings 0.3.1
+* fixed a bug that caused problems on 32-bit machines.
 
 # gghilbertstrings 0.3.0
 * updated RCPP code to use vectorized input (speed improved 2 orders of magnitude)
