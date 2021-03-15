@@ -50,7 +50,7 @@ NumericVector d2xy(int n, int d) {
 NumericMatrix d2xy2(int n, NumericVector d) {
   int l = d.size();
   NumericMatrix output(l, 2);
-  int order = (log(n) / log(4));
+  int order = (log((int)n) / log((int)4));
   int offset = 0;
   int offset2 = 0;
   if (order % 2 == 1) {
