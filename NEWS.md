@@ -1,3 +1,5 @@
+# gghilbertstrings 0.3.1
+
 # gghilbertstrings 0.3.0
 * updated RCPP code to use vectorized input (speed improved 2 orders of magnitude)
 
