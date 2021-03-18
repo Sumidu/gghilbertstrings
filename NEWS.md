@@ -1,3 +1,5 @@
+# gghilbertstrings (development version)
+
 # gghilbertstrings 0.3.1
 * fixed a bug that caused problems on 32-bit machines.
 

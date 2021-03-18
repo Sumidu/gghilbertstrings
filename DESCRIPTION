@@ -1,6 +1,6 @@
 Package: gghilbertstrings
 Title: A Fast 'ggplot2'-Based Implementation of Hilbert Curves
-Version: 0.3.1
+Version: 0.3.1.9000
 Authors@R: 
     person(given = "André",
            family = "Calero Valdez",
