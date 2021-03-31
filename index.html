@@ -119,7 +119,7 @@
 <p>We run the creation of a coordinate system 10 times. This means creating 1 entry for every possible corner in the Hilbert Curve.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">microbenchmark</span><span class="op">)</span>
-<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/jokergoo/HilbertCurve" class="external-link">HilbertCurve</a></span><span class="op">)</span>
+<span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">HilbertCurve</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va">tidyverse</span><span class="op">)</span>
 <span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/Sumidu/gghilbertstrings" class="external-link">gghilbertstrings</a></span><span class="op">)</span>
 <span class="va">mb</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="op">)</span>
@@ -131,7 +131,7 @@
   <span class="va">values</span> <span class="op">&lt;-</span> <span class="va">df</span><span class="op">$</span><span class="va">val</span>
   <span class="va">mb</span><span class="op">[[</span><span class="va">i</span><span class="op">]</span><span class="op">]</span> <span class="op">&lt;-</span> <span class="fu">microbenchmark</span><span class="op">(</span>times <span class="op">=</span> <span class="va">reps</span>,
                      HilbertCurve <span class="op">=</span> <span class="op">{</span>
-                       <span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/HilbertCurve/man/HilbertCurve.html" class="external-link">HilbertCurve</a></span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">^</span><span class="va">i</span>, level <span class="op">=</span> <span class="va">i</span>, newpage <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
+                       <span class="va">hc</span> <span class="op">&lt;-</span> <span class="fu">HilbertCurve</span><span class="op">(</span><span class="fl">1</span>, <span class="fl">4</span><span class="op">^</span><span class="va">i</span>, level <span class="op">=</span> <span class="va">i</span>, newpage <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span>
                      <span class="op">}</span>,
                      gghilbertstrings <span class="op">=</span> <span class="op">{</span>
                        <span class="va">ggh</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/hilbertd2xy.html">hilbertd2xy</a></span><span class="op">(</span>n <span class="op">=</span> <span class="fl">4</span><span class="op">^</span><span class="va">i</span>, <span class="va">values</span><span class="op">)</span>
@@ -202,7 +202,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9000.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 1.6.1.9001.</p>
 </div>
 
       </footer>
