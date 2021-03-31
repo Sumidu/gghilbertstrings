@@ -3,18 +3,16 @@
 * ubuntu 18.04 (on github-actions), R 3.3, 3.4, 3.5, oldrel, release, devel
 * windows latest (on github), R 4.0, release
 * windows server (devel and release, on rhub)
+* windows server (oldrel, on rhub)
 * solaris-x86-patched-ods (on rhub)
 
-## Problems from last submission
-There was an error on i386-pc-solaris2.10 (32-bit) from calling a C function.
 
-> call of overloaded ‘log(int&)’ is ambiguous
+## Problem from previous submission
+The package was removed from CRAN as there were problems on the i386 solaris
+and windows oldrel build. 
+The algorithm I use, uses bit testing to determine rotation.
+For reasons I don't understand the c++ compiler on these systems treats these 
+differently.
+The consequence is that my test-cases fail, but the results are fine, 
+they are just mirrored. 
 
-I changed all calls to log(...) to log((long)...) to ensure the long version
-of log is called.
-
-## Another problem was that the package could not be installed
-
-I was unaware that it was necessary to increase version number after the 
-initial acceptance to CRAN. So the version number was increase in the 
-patch-release.

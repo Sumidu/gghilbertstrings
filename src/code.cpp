@@ -13,19 +13,23 @@ NumericVector d2xy(long n, long d) {
   long rx, ry, s, t=d;
   long x = 0; long y = 0;
   //*x = *y = 0;
-  // loop sqrt(n) times
-  for (s=1; s<n; s*=2) {
+  // loop sqrt(n) times - divide and conquer approach
+  for (s = 1; s < n; s *= 2) {
+
+    // Test odd of half, causses 01100110011 pattern
     rx = 1 & (t/2);
+
+    // test odd of t^odd of half causes 001100110011 pattern
     ry = 1 & (t ^ rx);
     // Rotation
     if (ry == 0) {
       if (rx == 1) {
-        x = s-1 - x;
-        y = s-1 - y;
+        x = s - 1 - x;
+        y = s - 1 - y;
       }
 
       //Swap x and y
-      long t2  = x;
+      long t2 = x;
       x = y;
       y = t2;
     }

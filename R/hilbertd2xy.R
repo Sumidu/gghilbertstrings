@@ -1,4 +1,4 @@
-Rcpp::sourceCpp("src/code.cpp")
+#Rcpp::sourceCpp("src/code.cpp")
 #' Hilbert conversion, distance to coordinates
 #'
 #' @param n Size (must be a 2^k value, such as 4,8,16,32)
