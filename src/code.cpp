@@ -1,4 +1,21 @@
 #include <Rcpp.h>
+//#include <math.h>
+#include <cmath>
+
+const double log4 = log(4.f);
+
+
+//' Finds the order of the next highest number to the power of 4
+//' @param n number
+//' @return Order of next highest number 4^x
+// [[Rcpp::export]]
+long order4(long n) {
+  if(n < 1){
+    return (0L);
+  }
+  return ceil(log((double)n)/log4);
+}
+
 
 using namespace Rcpp;
 
@@ -11,7 +28,7 @@ using namespace Rcpp;
 NumericVector d2xy(long n, long d) {
   NumericVector output(2);
   long rx, ry, s, t=d;
-  long x = 0; long y = 0;
+  long x = 0L; long y = 0L;
   //*x = *y = 0;
   // loop sqrt(n) times - divide and conquer approach
   for (s = 1; s < n; s *= 2) {
@@ -52,15 +69,25 @@ NumericVector d2xy(long n, long d) {
 //' @return Matrix of x y values
 // [[Rcpp::export]]
 NumericMatrix d2xy2(long n, NumericVector d) {
+
+  // how long is the vector of data to produce
   long l = d.size();
+  // innit matrix size l,2
   NumericMatrix output(l, 2);
-  long order = (log((long)n) / log(4L));
+
+  // To allow only powers of 4 as the basis we determine the order
+  // This makes sense as we always want to start at 0,0 and end at 0, ymax
+  // This is equalt to order = log^4(n)
+  long order = order4(n);
+
   long offset = 0;
   long offset2 = 0;
   if (order % 2 == 1) {
     offset = -l;
     offset2 = l;
   }
+
+
   for (long i = 0; i < l; i ++) {
     long rx, ry, s, t=d[i];
     long x = 0; long y = 0;
@@ -99,5 +126,6 @@ NumericMatrix d2xy2(long n, NumericVector d) {
 
   return output;
 }
+
 
 

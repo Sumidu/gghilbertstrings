@@ -32,7 +32,7 @@ test_that("n is always at 2^i-1,0 ", {
   write.csv(d, "output.csv")
   print(d)
 
-  testthat::skip_if(grepl("i386", sessionInfo()$platform))
+  #testthat::skip_if(grepl("i386", sessionInfo()$platform))
 
   # test some manual examples
   for (i in 1:limit) {
@@ -61,8 +61,30 @@ test_that("Hilbert Curves are never negative", {
 
 })
 
+test_that("Testing order4 function", {
+  for(i in 1:9999) {
+    testthat::expect_lte(i, 4^gghilbertstrings:::order4(i))
+    testthat::expect_gte(i, 4^(gghilbertstrings:::order4(i)-1))
+  }
+})
 
 
 
 
-#gghilbertplot(tibble(d = 1:16), d, add_curve = T) + geom_label() + aes(label = d)
+if(FALSE){
+
+  #x <- 23182765654
+  #microbenchmark::microbenchmark(
+  #  gghilbertstrings:::order4(x),
+  #  gghilbertstrings:::order4b(x),
+  #  times = 1000
+  #)
+
+  #library(tidyverse)
+  #library(tibble)
+  gghilbertplot(tibble(d = 1:16), d, add_curve = T) + geom_label() + aes(label = d)
+  gghilbertplot(tibble(d = 1:63), d, add_curve = T) + geom_label() + aes(label = d)
+  gghilbertplot(tibble(d = 1:257), d, add_curve = T) + geom_label() + aes(label = d)
+
+}
+

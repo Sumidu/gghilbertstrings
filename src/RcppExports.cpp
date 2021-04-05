@@ -5,6 +5,17 @@
 
 using namespace Rcpp;
 
+// order4
+long order4(long n);
+RcppExport SEXP _gghilbertstrings_order4(SEXP nSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< long >::type n(nSEXP);
+    rcpp_result_gen = Rcpp::wrap(order4(n));
+    return rcpp_result_gen;
+END_RCPP
+}
 // d2xy
 NumericVector d2xy(long n, long d);
 RcppExport SEXP _gghilbertstrings_d2xy(SEXP nSEXP, SEXP dSEXP) {
@@ -31,6 +42,7 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_gghilbertstrings_order4", (DL_FUNC) &_gghilbertstrings_order4, 1},
     {"_gghilbertstrings_d2xy", (DL_FUNC) &_gghilbertstrings_d2xy, 2},
     {"_gghilbertstrings_d2xy2", (DL_FUNC) &_gghilbertstrings_d2xy2, 2},
     {NULL, NULL, 0}
