@@ -1,6 +1,8 @@
 # gghilbertstrings 0.3.3
+* moved to explicit call to cmath to overcome Solaris overloaded error. 
 
 # gghilbertstrings 0.3.2
+* fixed a bug that caused problems on Solaris
 
 # gghilbertstrings 0.3.1
 * fixed a bug that caused problems on 32-bit machines.
